@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React HTML Page</title>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+</head>
+<body>
+    <body>
+        <div id="root">not render</div>
+      </body>
+      
+<!-- Your React Script Tags -->
+<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+<!-- Your React JSX Script -->
+<script type="text/babel">
+  const Dummy_Data=[
+    { id: 1, name: 'Onboarding Call' },
+    { id: 2, name: 'Google Search Console Access' },
+    { id: 3, name: 'Google Analytics Access' },
+    { id: 4, name: 'Website Access' },
+    { id: 5, name: 'Technical Audit' },
+    { id: 6, name: 'Anchor Text and Semantic Analysis' },
+    { id: 7, name: 'Competitor Analysis' },
+    { id: 8, name: 'Anchor Text/URL Mapping' },
+    { id: 9, name: 'Google Data Studio Report + Local Reporting Suite' },
+    { id: 10, name: 'Site Level Optimization' },
+    { id: 11, name: 'On Page Optimization' },
+    { id: 12, name: 'Content Creation' },
+    { id: 13, name: 'Content Publishing' },
+    { id: 14, name: 'Premium Press Release' },
+    { id: 15, name: 'Authority Niche Placements' },
+    { id: 16, name: 'Review Management' },
+    { id: 17, name: 'Index Links' },
+    { id: 18, name: 'Video Recap' },
+]
+  // Inside the script tag with type="text/babel"
+const EditableTable = () => {
+  // State to store editable data
+  const [data, setData] = React.useState(Dummy_Data);
+
+  // Function to handle editing and updating data
+  const handleEdit = (id, key, value) => {
+    const newData = data.map(item => (item.id === id ? { ...item, [key]: value } : item));
+    setData(newData);
+  };
+  const submitHandler=(e)=>{
+    e.preventDefault();
+    console.log(data);
+    console.log("data ready to send")
+  }
+  return (
+    <div style={{display:"flex", flexDirection:"column",justifyContent:"Center",alignItems:"center"}}>
+      <table border="2" style={{ borderCollapse: 'collapse',  }}>
+        <thead>
+          <tr style={{ backgroundColor:"#D1d5d7"}}>
+            <th style={{ padding: '8px', textAlign: 'center' , }}>Month 1</th>
+            {[...Array(6)].map((_, index) => (
+              <th key={index} style={{ padding: '3px', textAlign: 'center' , width:"80px" }}></th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {data.map(item => (
+            <tr key={item.id}>
+              <td style={{ padding: '3px', textAlign: 'center' , backgroundColor:"#D1d5d7" }}  onBlur={(e) => handleEdit(item.id, 'name', e.target.innerText)}>
+                {item.name}
+              </td>
+              {[ ...Array(6).fill('')].map((cell, index) => (
+                <td key={index} style={{ padding: '3px' }} contentEditable onBlur={(e) => handleEdit(item.id, `cells.${index}`, e.target.innerText)}>
+                  {cell}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <button style={{margin:"8px",fontSize:"20px", backgroundColor:"green",color:"white" ,borderRadius:"4px" ,borderColor:"blue",cursor:"pointer"}} onClick={(e=>submitHandler(e))}>send</button>
+    </div>
+  );
+};
+
+// Render the component to the root element
+ReactDOM.render(<EditableTable />, document.getElementById('root'));
+</script>
+</body>
+</html>
