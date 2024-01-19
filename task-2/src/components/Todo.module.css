@@ -1,0 +1,12 @@
+.todo{
+    border-radius: 5px;
+    background-color: #f7eaa8;
+    margin: 4px;
+    padding: 4px;
+}
+.todo button{
+    background-color: #f7eaa8;
+    border: none;
+    display: block;
+    float: right;
+}

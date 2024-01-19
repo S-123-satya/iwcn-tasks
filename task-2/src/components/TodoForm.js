@@ -1,6 +1,6 @@
 // TodoForm.js
 import React, { useState } from 'react';
-
+import classes from './TodoForm.module.css' ;
 const TodoForm = ({ addTodo }) => {
   const [value, setValue] = useState('');
 
@@ -12,7 +12,7 @@ const TodoForm = ({ addTodo }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className={classes.formstyle} onSubmit={handleSubmit}>
       <input
         type="text"
         className="input"

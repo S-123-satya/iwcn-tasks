@@ -2,13 +2,22 @@
 .App {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  
   font-family: 'Arial', sans-serif;
   margin-top: 50px;
+}
+.todoform{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .input {
   margin-bottom: 10px;
   padding: 5px;
   font-size: 16px;
+}
+.main_todo{
+  display: flex;
+  margin: 4px;
 }
