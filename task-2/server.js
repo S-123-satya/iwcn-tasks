@@ -1,4 +1,13 @@
-// server.js
+// Run this command in your teminal to create a database
+
+// CREATE DATABASE notesdb;
+// USE notesdb;
+// CREATE TABLE notesdb (
+//     id INT AUTO_INCREMENT PRIMARY KEY,
+//     text TEXT NOT NULL,
+//     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+// );
+
 const express = require('express');
 const mysql = require('mysql');
 const cors = require('cors');
