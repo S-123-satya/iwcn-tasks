@@ -1,5 +1,6 @@
 .todo{
     border-radius: 5px;
+    max-width: 230px;
     background-color: #f7eaa8;
     margin: 4px;
     padding: 4px;
@@ -7,6 +8,9 @@
 .todo button{
     background-color: #f7eaa8;
     border: none;
-    display: block;
+    display: inline;
     float: right;
+}
+.todo span{
+    font-size: small;
 }

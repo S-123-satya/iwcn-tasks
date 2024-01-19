@@ -5,7 +5,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 app.use(cors());
 app.use(express.json());
@@ -25,8 +25,19 @@ db.connect((err) => {
     }
 });
 
+app.get('/note/:id', (req, res) => {
+    console.log(req.params);
+    const id = req.params.id;
+    db.query('SELECT * FROM notesdb where id= ? ',id, (err, result) => {
+        if (err) {
+            res.status(500).send(err.message);
+        } else {
+            res.status(200).json(result);
+        }
+    });
+});
 app.get('/notes', (req, res) => {
-    db.query('SELECT * FROM notes', (err, result) => {
+    db.query('SELECT * FROM notesdb', (err, result) => {
         if (err) {
             res.status(500).send(err.message);
         } else {
@@ -36,19 +47,19 @@ app.get('/notes', (req, res) => {
 });
 
 app.post('/notes', (req, res) => {
-    const { title, content } = req.body;
-    db.query('INSERT INTO notes (title, content) VALUES (?, ?)', [title, content], (err, result) => {
+    const { text } = req.body;
+    db.query('INSERT INTO notesdb (text) VALUES (?)', [text], (err, result) => {
         if (err) {
             res.status(500).send(err.message);
         } else {
-            res.status(201).send('Note added successfully');
+            res.status(201).json({message:'Note added successfully',id:result.insertId});
         }
     });
 });
 
 app.delete('/notes/:id', (req, res) => {
     const id = req.params.id;
-    db.query('DELETE FROM notes WHERE id = ?', id, (err, result) => {
+    db.query('DELETE FROM notesdb WHERE id = ?', id, (err, result) => {
         if (err) {
             res.status(500).send(err.message);
         } else {

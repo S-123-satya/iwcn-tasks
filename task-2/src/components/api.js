@@ -2,11 +2,10 @@
 
 // CREATE DATABASE notesdb;
 // USE notesdb;
-
-// CREATE TABLE notes (
+// CREATE TABLE notesdb (
 //     id INT AUTO_INCREMENT PRIMARY KEY,
-//     title VARCHAR(255) NOT NULL,
-//     content TEXT
+//     text TEXT NOT NULL,
+//     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 // );
 
 import axios from 'axios';
@@ -16,5 +15,6 @@ const instance = axios.create({
 });
 
 export const getNotes = () => instance.get('/notes');
+export const getNote = (id) => instance.get(`/note/${id}`);
 export const addNote = (note) => instance.post('/notes', note);
 export const deleteNote = (id) => instance.delete(`/notes/${id}`);

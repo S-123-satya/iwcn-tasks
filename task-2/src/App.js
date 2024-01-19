@@ -1,24 +1,31 @@
 // App.js
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Todo from "./components/Todo";
 import TodoForm from "./components/TodoForm";
 import "./App.css";
+import { deleteNote, getNotes } from "./components/api";
 
 function App() {
   const [todos, setTodos] = useState([
-    { text: "Learn React" },
-    { text: "Build a Todo app"},
   ]);
 
   const addTodo = (text) => {
-    const newTodos = [...todos, { text, isCompleted: false }];
+    console.log(text);
+    const newTodos = [...todos, { ...text }];
     setTodos(newTodos);
   };
-
-  const removeTodo = (index) => {
+  useEffect(() => {
+    async function fetch(){
+      const response = await getNotes();
+      setTodos([...response.data])
+    }
+    fetch();
+  }, []);
+  const removeTodo = (id) => {
     const newTodos = [...todos];
-    newTodos.splice(index, 1);
-    setTodos(newTodos);
+    const newTodo=newTodos.filter(todo=>todo.id!==id)
+    deleteNote(id);
+    setTodos(newTodo);
   };
 
   return (
@@ -29,12 +36,7 @@ function App() {
       </div>
       <div className="main_todo">
         {todos.map((todo, index) => (
-          <Todo
-            key={index}
-            index={index}
-            todo={todo}
-            removeTodo={removeTodo}
-          />
+          <Todo key={todo.id} index={todo.id} todo={todo} removeTodo={removeTodo} />
         ))}
       </div>
     </div>

@@ -18,6 +18,8 @@
   font-size: 16px;
 }
 .main_todo{
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   margin: 4px;
+  grid-auto-columns: auto;
 }
